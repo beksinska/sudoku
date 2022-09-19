@@ -31,10 +31,11 @@ fun topBar(solution: MutableState<Boolean>) {
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier.fillMaxWidth()
     ) {
-        solutionButton(solution)
+//        solutionButton(solution)
     }
 }
 
+/*
 @Composable
 fun solutionButton(solution: MutableState<Boolean>) {
     Button(
@@ -48,6 +49,8 @@ fun solutionButton(solution: MutableState<Boolean>) {
     )
     }
 }
+
+ */
 
 
 

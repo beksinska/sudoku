@@ -10,20 +10,21 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun sudokuGame() {
 
-    val solution = remember { mutableStateOf(false) }
+ //   val solution = remember { mutableStateOf(false) }
 
     Builder().setLevel(Level.JUNIOR).build().printGrid()
 
     Column {
         Spacer(modifier = Modifier.padding(12.dp))
         headingText()
-        topBar(solution)
+ //       topBar(solution)
         Spacer(modifier = Modifier.fillMaxHeight(0.04f))
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxSize()
         ) {
             Box {
+                /*
                 if (solution.value) {
                     for (i in 0 until GRID_SIZE) {
                         for (j in 0 until GRID_SIZE) {
@@ -31,10 +32,12 @@ fun sudokuGame() {
                         }
                     }
                 }
+
+                 */
                 table()
             }
             Spacer(Modifier.fillMaxHeight(0.06f))
-            finalScreen(text = "VICTORY!")
+//            finalScreen(text = "VICTORY!")
             Spacer(Modifier.fillMaxHeight(0.06f))
             dialPad()
             Spacer(modifier = Modifier.padding(10.dp))
