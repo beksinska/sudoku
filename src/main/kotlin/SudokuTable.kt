@@ -1,70 +1,48 @@
-import Builder.grid
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
-import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import java.io.*
 
 var change = "0"
 
-data class SudokuCellData(
-    val row: Int,
-    val column: Int,
-    val number: String = "",
-    var state: SudokuCellState = SudokuCellState.EMPTY
-): Serializable {
-    override fun hashCode(): Int {
-        return getHash(row, column)
-    }
-}
-
-internal fun getHash(row: Int, column: Int): Int {
-    val newX = row*100
-    return "$newX$column".toInt()
-}
-
-
 @Composable
 fun sudokuCell(row: Int, column: Int) {
-    var number = grid[row][column].toString()
+    val number = grid[row][column].toString()
+    val visibleNumber = remember { mutableStateOf(if (number == "0") "" else number) }
     val fixed = remember { mutableStateOf(number != "0") }
-   /* val backgroundColor = if (isSelected) {
-        MaterialTheme.colors.onBackground.copy(alpha = 0.2f)
-    } else {
-        MaterialTheme.colors.background
-    }
-    val backgroundColorAnimated = animateColorAsState(targetValue = backgroundColor).value
-    */
     Box(Modifier
         .height(40.dp)
         .width(40.dp)
         .padding(0.75.dp)
         .border(1.dp, Color.Gray)
-//        .background(backgroundColorAnimated)
         .aspectRatio(1f)
-        .background(color = Red)
+        .background(if (fixed.value) Color.Red else Color.White)
         .clickable {
-            if (!fixed.value) {
-                number = change
-                grid[row][column] = change.toInt()
+           if (!fixed.value) {
+               visibleNumber.value = change
+               grid[row][column] = change.toInt()
             }
-        }
+            if (numberQuantity()) {
+                check()
+                println(check())
+            }
+       }
     ) {
         Text(
             color = Black,
-            text = if (number == "0") "" else number,
+            text = if (visibleNumber.value == "0") "" else visibleNumber.value,
             modifier = Modifier.align(Alignment.Center),
             textAlign = TextAlign.Center,
             fontSize = 24.sp,
@@ -97,11 +75,10 @@ fun smallTable(i: Int) {
 }
 
 @Composable
-fun table(f: Float) {
+fun table() {
     Column(
         Modifier
-            .padding(2.dp)
-            .alpha(f)) {
+            .padding(2.dp)) {
         Row {
             smallTable(0)
             smallTable(1)

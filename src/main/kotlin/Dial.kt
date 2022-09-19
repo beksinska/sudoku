@@ -14,20 +14,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun dial(num: String = "", dialStateList: List<MutableState<Boolean>>) {
+fun dial(number: String = "", dialStateList: List<MutableState<Boolean>>) {
     Box(
         Modifier
             .height(60.dp)
             .width(60.dp)
             .padding(2.dp)
-
-            .background(Color.Red)
+            .background(if (dialStateList[number.toInt() - 1].value) Color.Red else Color.White)
             .clickable {
-                change = num
-                dialStateList[num.toInt() - 1].value = true
+                change = number
+                disableAll(dialStateList)
+                dialStateList[number.toInt() - 1].value = true
             }) {
         Text(
-            text = num,
+            text = number,
             Modifier
                 .align(Alignment.Center),
             fontSize = 26.sp,
@@ -38,7 +38,7 @@ fun dial(num: String = "", dialStateList: List<MutableState<Boolean>>) {
 }
 
 @Composable
-fun DialPad() {
+fun dialPad() {
     val dialStateList = listOf(remember { mutableStateOf(false) },
         remember { mutableStateOf(false) },
         remember { mutableStateOf(false) },
@@ -50,8 +50,7 @@ fun DialPad() {
         remember { mutableStateOf(false) })
     Column(
         Modifier
-            .padding(1.dp)
-            .clickable { }) {
+            .padding(1.dp)) {
         Row {
             dial("1", dialStateList)
             dial("2", dialStateList)
@@ -68,5 +67,11 @@ fun DialPad() {
             dial("9", dialStateList)
 
         }
+    }
+}
+
+fun disableAll(dialStateList: List<MutableState<Boolean>>) {
+    for (i in 0..8) {
+        dialStateList[i].value = false
     }
 }
