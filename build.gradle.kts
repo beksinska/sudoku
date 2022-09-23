@@ -18,7 +18,7 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
-    implementation(compose.desktop.macos_x64)
+    implementation(compose.desktop.currentOs)
 }
 
 tasks.test {
