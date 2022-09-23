@@ -1,6 +1,5 @@
 internal object Solver {
 
-
     private lateinit var grid: Array<IntArray>
 
     fun solvable(grid: Array<IntArray>) : Boolean {
@@ -79,6 +78,5 @@ internal object Solver {
     private fun findBoxStart(index: Int) = index - index % GRID_SIZE_SQUARE_ROOT
 
     private fun findBoxEnd(index: Int) = index + BOX_SIZE - 1
-
 
 }

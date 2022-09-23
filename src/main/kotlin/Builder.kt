@@ -1,14 +1,9 @@
-import java.io.Serializable
-import java.util.*
-import kotlin.collections.LinkedHashMap
 import kotlin.random.Random
-
 
 var grid = Array(GRID_SIZE) { IntArray(GRID_SIZE) {0} }
 var original = Array(GRID_SIZE) { IntArray(GRID_SIZE) {0} }
 
-
-class Sudoku constructor(val level: Level) {
+class Sudoku constructor(private val level: Level) {
     init {
         fillGrid()
     }
@@ -28,7 +23,7 @@ class Sudoku constructor(val level: Level) {
         removeDigits()
     }
 
-    fun buildPuzzle() {
+    private fun buildPuzzle() {
         fillDiagonalBoxes()
         fillRemaining(0, GRID_SIZE_SQUARE_ROOT)
         for (i in 0 until GRID_SIZE) {
@@ -43,9 +38,7 @@ class Sudoku constructor(val level: Level) {
 
 
     private fun fillDiagonalBoxes() {
-        for (i in 0 until GRID_SIZE step GRID_SIZE_SQUARE_ROOT) {
-            fillBox(i, i)
-        }
+        for (i in 0 until GRID_SIZE step GRID_SIZE_SQUARE_ROOT) fillBox(i, i)
     }
 
     private fun fillBox(row: Int, column: Int) {
@@ -139,11 +132,9 @@ class Sudoku constructor(val level: Level) {
 
     private fun removeDigits() {
         var digitsToRemove = GRID_SIZE * GRID_SIZE - level.numberOfProvidedDigits
-
         while (digitsToRemove > 0) {
             val randomRow = generateRandomInt(MIN_DIGIT_INDEX, MAX_DIGIT_INDEX)
             val randomColumn = generateRandomInt(MIN_DIGIT_INDEX, MAX_DIGIT_INDEX)
-
             if (grid[randomRow][randomColumn] != 0) {
                 val digitToRemove = grid[randomRow][randomColumn]
                 grid[randomRow][randomColumn] = 0

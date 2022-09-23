@@ -1,4 +1,6 @@
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 
 
 fun numberQuantity() : Boolean {
@@ -12,14 +14,17 @@ fun numberQuantity() : Boolean {
     return true
 }
 
+
 fun check() : Boolean {
-        for (i in 0..8) {
-            for (j in 0..8) {
-                if (grid[i][j] != original[i][j]) {
-                    return false
-                }
+    for (i in 0..8) {
+        for (j in 0..8) {
+            if (grid[i][j] != original[i][j]) {
+                return false
             }
         }
-        return true
     }
+    return true
+}
+
+
 
