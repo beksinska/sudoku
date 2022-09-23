@@ -170,26 +170,6 @@ fun main() = application {
     }
 
     @Composable
-    fun checkButton() {
-        Text(
-            modifier = Modifier
-                .padding(15.dp)
-                .background(White)
-                .clickable {
-                    update.value = true
-                    println(check())
-                }
-                .padding(6.dp),
-            text = "CHECK",
-            fontSize = 22.sp,
-            color = Color.Black,
-            fontWeight = FontWeight.Light,
-            letterSpacing = 5.sp,
-
-            )
-    }
-
-    @Composable
     fun buttonBar() {
         Row(
             horizontalArrangement = Arrangement.Center,

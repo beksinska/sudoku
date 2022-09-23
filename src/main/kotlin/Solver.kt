@@ -30,7 +30,7 @@ internal object Solver {
 
     private fun getAvailableDigits(row: Int, column: Int) : Iterable<Int> {
         val digitsRange = MIN_DIGIT_VALUE..MAX_DIGIT_VALUE
-        var availableDigits = mutableSetOf<Int>()
+        val availableDigits = mutableSetOf<Int>()
         availableDigits.addAll(digitsRange)
 
         truncateByDigitsAlreadyUsedInRow(availableDigits, row)
