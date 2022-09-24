@@ -24,8 +24,6 @@ var change = "0"
 
 fun main() = application {
 
-    val update = remember { mutableStateOf(false) }
-
     fun disableAll(dialStateList: List<MutableState<Boolean>>) {
         for (i in 0..8) {
             dialStateList[i].value = false
@@ -105,10 +103,6 @@ fun main() = application {
                 if (!fixed.value) {
                     visibleNumber.value = change
                     grid[row][column] = change.toInt()
-                }
-                if (numberQuantity()) {
-                    check()
-                    println(check())
                 }
             }
         ) {
