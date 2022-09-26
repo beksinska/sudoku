@@ -7,7 +7,7 @@ internal object Solver {
         return solve()
     }
 
-    fun Array<IntArray>.copy() = Array(size) { get(it).clone() }
+    private fun Array<IntArray>.copy() = Array(size) { get(it).clone() }
 
     private fun solve() : Boolean {
         for (i in 0 until GRID_SIZE) {
@@ -32,7 +32,6 @@ internal object Solver {
         val digitsRange = MIN_DIGIT_VALUE..MAX_DIGIT_VALUE
         val availableDigits = mutableSetOf<Int>()
         availableDigits.addAll(digitsRange)
-
         truncateByDigitsAlreadyUsedInRow(availableDigits, row)
         if (availableDigits.size > 1) {
             truncateByDigitsAlreadyUsedInColumn(availableDigits, column)
@@ -40,7 +39,6 @@ internal object Solver {
         if (availableDigits.size > 1) {
             truncateByDigitsAlreadyUsedInBox(availableDigits, row, column)
         }
-
         return availableDigits.asIterable()
     }
 
@@ -65,7 +63,6 @@ internal object Solver {
         val rowEnd = findBoxEnd(rowStart)
         val columnStart = findBoxStart(column)
         val columnEnd = findBoxEnd(columnStart)
-
         for (i in rowStart until rowEnd) {
             for (j in columnStart until columnEnd) {
                 if (grid[i][j] != 0) {
