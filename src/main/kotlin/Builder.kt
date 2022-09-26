@@ -36,11 +36,12 @@ class Sudoku constructor(private val level: Level) {
         println()
     }
 
-
+    //Fill all the diagonal 3x3 boxes
     private fun fillDiagonalBoxes() {
         for (i in 0 until GRID_SIZE step GRID_SIZE_SQUARE_ROOT) fillBox(i, i)
     }
 
+    //Fill a 3 x 3 box
     private fun fillBox(row: Int, column: Int) {
         var generatedDigit: Int
         for (i in 0 until GRID_SIZE_SQUARE_ROOT) {
@@ -53,19 +54,12 @@ class Sudoku constructor(private val level: Level) {
         }
     }
 
+    //Randomly take any number from min to max
     private fun generateRandomInt(min: Int, max: Int) = Random.nextInt(min, max + 1)
 
-    private fun isUnusedInBox(rowStart: Int, columnStart: Int, digit: Int) : Boolean {
-        for (i in 0 until GRID_SIZE_SQUARE_ROOT) {
-            for (j in 0 until GRID_SIZE_SQUARE_ROOT) {
-                if (grid[rowStart + i][columnStart + j] == digit) {
-                    return false
-                }
-            }
-        }
-        return true
-    }
-
+    //Fill rest of the non-diagonal matrices.
+    //For every cell to be filled, we try all numbers until
+    //we find a safe number to be placed.
     private fun fillRemaining(i: Int, j: Int) : Boolean {
         var i = i
         var j = j
@@ -105,12 +99,24 @@ class Sudoku constructor(private val level: Level) {
         return false
     }
 
+    //Check if it is safe to put in the cell
     private fun isSafeToPutIn(row: Int, column: Int, digit: Int) =
         isUnusedInBox(findBoxStart(row), findBoxStart(column), digit)
                 && isUnusedInRow(row, digit)
                 && isUnusedInColumn(column, digit)
 
     private fun findBoxStart(index: Int) = index - index % GRID_SIZE_SQUARE_ROOT
+
+    private fun isUnusedInBox(rowStart: Int, columnStart: Int, digit: Int) : Boolean {
+        for (i in 0 until GRID_SIZE_SQUARE_ROOT) {
+            for (j in 0 until GRID_SIZE_SQUARE_ROOT) {
+                if (grid[rowStart + i][columnStart + j] == digit) {
+                    return false
+                }
+            }
+        }
+        return true
+    }
 
     private fun isUnusedInRow(row: Int, digit: Int) : Boolean {
         for (i in 0 until GRID_SIZE) {
@@ -130,6 +136,8 @@ class Sudoku constructor(private val level: Level) {
         return true
     }
 
+    //Once grid is fully filled, remove elements randomly to complete the
+    //game if the puzzle is still solvable after each removal
     private fun removeDigits() {
         var digitsToRemove = GRID_SIZE * GRID_SIZE - level.numberOfProvidedDigits
         while (digitsToRemove > 0) {

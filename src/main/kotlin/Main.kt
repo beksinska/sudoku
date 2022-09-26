@@ -184,7 +184,9 @@ fun main() = application {
         sudokuGame()
         Column {
             Spacer(modifier = Modifier.padding(12.dp))
-            headingText()
+            Column(Modifier.padding(10.dp)) {
+                headingText()
+            }
             Spacer(modifier = Modifier.fillMaxHeight(0.04f))
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -200,8 +202,7 @@ fun main() = application {
                         statusText("Game in progress")
                     }
                 }
-                Spacer(Modifier.fillMaxHeight(0.06f))
-                Spacer(Modifier.fillMaxHeight(0.06f))
+                Spacer(Modifier.fillMaxHeight(0.12f))
                 dialPad()
                 buttonBar()
                 Spacer(modifier = Modifier.padding(10.dp))

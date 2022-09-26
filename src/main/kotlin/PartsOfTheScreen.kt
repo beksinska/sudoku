@@ -19,7 +19,7 @@ fun headingText() {
         color = Color.Black,
         letterSpacing = 10.sp,
         textAlign = TextAlign.Center,
-        modifier = Modifier.padding(top = 2.dp)
+        modifier = Modifier.padding(top = 2.dp),
     )
 }
 
